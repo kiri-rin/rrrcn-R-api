@@ -1,15 +1,14 @@
+library(readr)
 distance_services <- source("../services/distnace_services.R")
-#* @serializer  json
+#* @serializer unboxedJSON
 #* @parser multi
 #* @parser octet
 #* @param totalArea:[dbl]
 #* @post /distance
 function(req,totalArea){
-  body <- readr::read_csv(req$body$data$value)
-  print(req$body)
-  print(totalArea)
-  totalArea <- as.numeric(totalArea)
-  body$distance <-body$Dist 
+ body <- readr::read_csv(req$body$data$value)
+ body$object <- body$ID
+ totalArea <- as.numeric(totalArea)
  DistanceService(body,totalArea)
 }
 
