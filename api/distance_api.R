@@ -3,12 +3,15 @@ distance_services <- source("../services/distnace_services.R")
 #* @serializer unboxedJSON
 #* @parser multi
 #* @parser octet
-#* @param totalArea:[dbl]
+#* @param density_function:[str]
+#* @param output:[str]
 #* @post /distance
-function(req,totalArea){
+function(req,density_function="hn",output){
  body <- readr::read_csv(req$body$data$value)
  body$object <- body$ID
- totalArea <- as.numeric(totalArea)
- DistanceService(body,totalArea)
+ totalArea <- as.character(density_function)
+ output <- as.character(output)
+
+ DistanceService(body,totalArea,output)
 }
 
