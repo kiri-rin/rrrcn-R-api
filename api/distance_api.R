@@ -15,3 +15,16 @@ function(req,density_function="hn",output){
  DistanceService(body,totalArea,output)
 }
 
+#* @serializer unboxedJSON
+#* @parser multi
+#* @parser octet
+#* @post /survival
+function(req,density_function="hn",output){
+ body <- readr::read_csv(req$body$data$value)
+ body$object <- body$ID
+ totalArea <- as.character(density_function)
+ output <- as.character(output)
+
+ DistanceService(body,totalArea,output)
+}
+
