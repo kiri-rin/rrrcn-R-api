@@ -1,5 +1,8 @@
 library(readr)
-distance_services <- source("../services/distnace_services.R")
+source("../services/survival_service.R");
+
+source("../services/distnace_services.R");
+
 #* @serializer unboxedJSON
 #* @parser multi
 #* @parser octet
@@ -18,13 +21,11 @@ function(req,density_function="hn",output){
 #* @serializer unboxedJSON
 #* @parser multi
 #* @parser octet
+#* @param output:[str]
 #* @post /survival
-function(req,density_function="hn",output){
+function(req,output){
  body <- readr::read_csv(req$body$data$value)
- body$object <- body$ID
- totalArea <- as.character(density_function)
  output <- as.character(output)
 
- DistanceService(body,totalArea,output)
+ SurvivalService(body,output)
 }
-
